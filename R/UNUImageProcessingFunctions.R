@@ -286,9 +286,9 @@ NrrdCrc<-function(infile,UseGzip=FALSE,FastHeader=TRUE){
 			warning("This is not a nrrd")
 			return(NA)
 		}
-		while( length(l<-readLines(con,1))>0 && l!="" ){
-			if(nchar(l)>12 && substr(l,1,10)=="encoding"){
-				if(substr(encoding,11,12)!="gz"){
+		while( length(l<-readLines(con, 1))>0 && l!="" ){
+			if(nchar(l)>=12 && substr(l, 1, 9)=="encoding:"){
+				if(substr(l, 11, 12)!="gz"){
 					warning("This is not a gzip encoded nrrd")
 					return(NA)
 				}
