@@ -91,7 +91,7 @@ NrrdResample<-function(infile,outfile,size,voxdims=NULL,
 	if(!is.null(voxdims)){
 		# we have a target voxel size instead of a standard size specification
 		# first fetch existing voxel size
-		size=NrrdVoxDims(infile)/voxdims
+		size=nat::nrrd.voxdims(infile)/voxdims
 	}
 	if(is.integer(size)) size=paste("--size",paste(size,collapse=" "))
 	else {
@@ -145,8 +145,8 @@ NrrdResample<-function(infile,outfile,size,voxdims=NULL,
 
 NrrdHisto<-function(infile,outfile=sub("\\.([^.]+)$",".histo.\\1",infile),
 	maskfile,bins,min,max,blind8=TRUE,...){
-	h=ReadNrrdHeader(infile)
-	nrrdType=.standardNrrdType(h$type)
+	h=nat::read.nrrd.header(infile)
+	nrrdType=nat:::.standardNrrdType(h$type)
 	unuhistooptions=''
 	if(nrrdType%in%c("uint8","int8") && blind8 && missing(min) && missing(max)){
 		# this is an 8 bit image
@@ -206,7 +206,7 @@ NrrdQuantize<-function(infile,outfile,min,max,bits=c("8","16","32"),
 NrrdTestIntegrity<-function(infile,defaultReturnVal=TRUE){
 	# Tests integrity of a compressed nrrd file using crc check
 	if(!file.exists(infile)) return(NA)
-	h=ReadNrrdHeader(infile)
+	h=nat::read.nrrd.header(infile)
 	if(tolower(h$encoding)%in%c("gz","gzip")) testprog='gzip'
 	else if(tolower(h$encoding)%in%c("bz2","bzip2")) testprog='bzip2'
 	else {
@@ -226,7 +226,7 @@ NrrdTestDataLength<-function(infile,defaultReturnVal=TRUE){
 	if(!file.exists(infile)) return(NA)
 	# need to read this full header in order to get the size in bytes of
 	# the uncompressed data
-	fullh=Read3DDensityFromNrrd(infile,ReadData=F,AttachFullHeader=T)
+	fullh=nat::read.nrrd(infile,ReadData=F,AttachFullHeader=T)
 	h=attr(fullh,'header')
 	if(tolower(h$encoding)%in%c("gz","gzip")) enc='gzip'
 	else if(tolower(h$encoding)=='raw') enc='raw'
@@ -507,7 +507,7 @@ NrrdSave<-function(infile,outfile,format=c("nrrd","pnm","text","vtk","png","eps"
   if(CreateDirs && !file.exists(dirname(outfile))) dir.create(dirname(outfile),recursive = TRUE)
   lockfile=paste(outfile,sep=".","lock")
   # return FALSE to signal output doesn't (yet) exist
-  if(UseLock && !makelock(lockfile)) return (FALSE)
+  if(UseLock && !nat.utils::makelock(lockfile)) return (FALSE)
   on.exit(unlink(lockfile))
 
   rval=system(cmd)==0
