@@ -1,7 +1,7 @@
 # Some Image Processing Functions making use of the unu command line tool
 # unu = Utah Nrrd Utilities - ie they operate on nrrd files
 # See http://teem.sourceforge.net/unrrdu/index.html
- 
+
 Nrrd2op<-function(infiles,outfile,fun=c("max","min","+", "-", "x", "/"),
 	gzip=FALSE,CreateDirs=TRUE,Verbose=TRUE,Force=FALSE){
 	if(length(infiles)<1) return(NULL)
@@ -26,7 +26,7 @@ Nrrd2op<-function(infiles,outfile,fun=c("max","min","+", "-", "x", "/"),
 				shQuote(f),shQuote(outfile),"-o",shQuote(outfile))
 			system(cmd)
 			if(Verbose) cat(".")
-		}		
+		}
 	}
 	if(length(infiles)>1 && gzip)
 		system(paste("unu save --format nrrd --encoding gzip","-i",shQuote(outfile),"-o",shQuote(outfile)))
@@ -99,7 +99,7 @@ NrrdResample<-function(infile,outfile,size,voxdims=NULL,
 		# eg size=c(0.5,0.5,NA) => "--size x0.5 x0.5 ="
 		size=sub("xNA","=",size)
 	}
-	 
+
 	if (missing(outfile)) {
 		# we only want to add a default suffix if we are putting the output
 		# file into the same directory
@@ -160,9 +160,9 @@ NrrdHisto<-function(infile,outfile=sub("\\.([^.]+)$",".histo.\\1",infile),
 			if(any(is.na(r))) stop("Unable to find min and max from: ",infile)
 			if(missing(min)) min=r[1]
 			if(missing(max)) max=r[2]
-    	}  
+    	}
 		unuhistooptions=paste("-min",min,"-max",max)
-	} 
+	}
 	if(missing(bins)){
 		# check if this is a float data type
 		if(nrrdType%in%c("float","double"))
@@ -184,15 +184,15 @@ NrrdQuantize<-function(infile,outfile,min,max,bits=c("8","16","32"),
 	# Do nothing if inputs are older than output unless Force=T
 	if(!Force && !RunCmdForNewerInput(NULL,infile,outfile)) return (FALSE)
 	if(CreateDirs && !file.exists(dirname(outfile))) dir.create(dirname(outfile),recursive = TRUE)
-	
+
 	bits=match.arg(bits)
-	
+
 	lockfile=paste(outfile,sep=".","lock")
 	if(UseLock && !makelock(lockfile)) return (FALSE)
 	# unu quantize -b 8 -min 7397.386 -max 65535 -i AL-PNs_mask_MF_final_IS2_SAIA24-1_02.nrrd \
 	# | unu save -f nrrd -e gz -o AL-PNs_mask_MF_final_IS2_SAIA24-1_02-quant.nrrd
-	
-	minmaxopts=paste(ifelse(missing(min),"",paste("-min",min)), 
+
+	minmaxopts=paste(ifelse(missing(min),"",paste("-min",min)),
 		ifelse(missing(max),"",paste("-max",max)))
 	cmd=paste("unu quantize -b",bits,minmaxopts,"-i",shQuote(infile))
 	if(gzip) cmd=paste(cmd,"| unu save -f nrrd -e gzip -o",shQuote(outfile))
@@ -221,8 +221,8 @@ NrrdTestDataLength<-function(infile,defaultReturnVal=TRUE){
 	# Tests integrity of a nrrd file by checking that the data block is as long
 	# as it should be. For a gzip file, it checks that the last 4 bytes
 	# encode the length of the uncompressed data. This says nothing about the contents
-	# but does ensure that the file has not been truncated which is much the most 
-	# common problem. 
+	# but does ensure that the file has not been truncated which is much the most
+	# common problem.
 	if(!file.exists(infile)) return(NA)
 	# need to read this full header in order to get the size in bytes of
 	# the uncompressed data
@@ -310,7 +310,7 @@ NrrdCrc<-function(infile,UseGzip=FALSE,FastHeader=TRUE){
 		system(paste("unu data ",shQuote(infile)," > ",shQuote(tmp)))
 		x=system(paste("gzip -lv",shQuote(tmp)),intern=TRUE)
 		crc=try(strsplit(x[2],"[ ]+")[[1]][[2]])
-		if(inherits(crc,'try-error')) crc=NA		
+		if(inherits(crc,'try-error')) crc=NA
 	} else {
 		# TODO Fix handling of nhdr files
 		if(!is.null(h) && !is.null(h$datafile)){
@@ -328,7 +328,7 @@ NrrdCrc<-function(infile,UseGzip=FALSE,FastHeader=TRUE){
 		# TODO check endian issues (what happens if CRC was from opposite endian platform?)
 		crc=readBin(con,integer(),size=4)
 		crc=format(as.hexmode(crc),width=8)
-	}	
+	}
 	crc
 }
 
@@ -338,14 +338,14 @@ NrrdCrc<-function(infile,UseGzip=FALSE,FastHeader=TRUE){
 #' @details gamma: Just as in xv, the gamma value here is actually the reciprocal
 #'   of the exponent actually used to transform the values.
 #' Note also that for \code{cropmin,cropmax} the special value M can be used
-#'   to indicate the maximum index for that axis (i.e. n-1 when there are n 
+#'   to indicate the maximum index for that axis (i.e. n-1 when there are n
 #'   samples).
 #' @param infile Path to input file
 #' @param outfile Optional path to output file (constructed automatically when missing)
 #' @param axis Number indicating 0-indexed axis or character "x", "y" or "z"
 #' @param measure Character vector indicating summary function to apply to
 #'   values in each column. Choose from \code{c("max", "min", "mean", "median",
-#'   "mode", "variance", "skew", "intc", "slope", "error", "sd", "product", 
+#'   "mode", "variance", "skew", "intc", "slope", "error", "sd", "product",
 #'   "sum", "L1", "L2", "Linf")}
 #' @return Logical indicating success
 #' @export
@@ -429,21 +429,21 @@ NrrdMerge<-function(infiles,outdir=NULL,outfile=NULL,axis=0,
 
 NrrdFlip<-function(infile,outfile,axes,suffix=NULL,endian=c("big","little"),
 	CreateDirs=TRUE,Verbose=TRUE,UseLock=FALSE, OverWrite=c("no","update","yes")){
-	# TODO would be nice if we could 
+	# TODO would be nice if we could
 	# a) have an absolute flip mode that checks the nrrd content field
 	# b) similarly checks whether output image has been flipped accordingly
-	
+
 	if(is.logical(OverWrite)) OverWrite=ifelse(OverWrite,"yes","no")
 	else OverWrite=match.arg(OverWrite)
-	
+
 	endian=match.arg(endian)
 	if (missing(outfile)) {
 		if(is.null(suffix)) suffix=paste("-flip",paste(axes,collapse=""),sep="")
 		outfile=sub("\\.nrrd$",paste(suffix,".nrrd",sep=""),infile)
 	}
-	
+
 	if(!file.exists(infile)) stop("infile: ",infile," does not exist")
-	
+
 	# return TRUE to signal output exists (whether or not we made it)
 	if(file.exists(outfile)){
 		if(OverWrite=="no"){
@@ -454,7 +454,7 @@ NrrdFlip<-function(infile,outfile,axes,suffix=NULL,endian=c("big","little"),
 			if(!RunCmdForNewerInput(NULL,infile,outfile)) return (TRUE)
 		} else if(Verbose) cat("Overwriting",outfile,"because OverWrite=\"yes\"\n")
 	}
-	
+
 	if(CreateDirs && !file.exists(dirname(outfile))) dir.create(dirname(outfile),recursive = TRUE)
 	lockfile=paste(outfile,sep=".","lock")
 	# return FALSE to signal output doesn't (yet) exist
@@ -469,7 +469,7 @@ NrrdFlip<-function(infile,outfile,axes,suffix=NULL,endian=c("big","little"),
 	}
 	# save
 	cmd=paste(cmd," | unu save -f nrrd -e gz -en",endian,"-o",shQuote(outfile))
-	
+
 	rval = system(cmd)
 	if(Verbose) cat(".")
 	if(rval!=0) stop("unu error ",rval," in NrrdProject")
@@ -495,12 +495,12 @@ NrrdSave<-function(infile,outfile,format=c("nrrd","pnm","text","vtk","png","eps"
   encodings=c("raw","ascii","hex","gzip","bzip2")
   encoding=encodings[pmatch(encoding,encodings)]
   if(is.na(encoding)) stop("Invalid encoding")
-  
+
   if(missing(outfile)) {
     outfile=infile
     samefile=TRUE
   } else samefile=FALSE
-  
+
   cmd=paste('unu save','--format',format,'-e',encoding,'-i',shQuote(infile),'-o',shQuote(outfile))
   if(DryRun) return(cmd)
 
