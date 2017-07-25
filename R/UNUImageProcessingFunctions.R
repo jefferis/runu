@@ -295,7 +295,7 @@ NrrdCrc<-function(infile,UseGzip=FALSE,FastHeader=TRUE){
 			}
 		}
 	} else {
-		h=ReadNrrdHeader(infile)
+		h=nat::read.nrrd.header(infile)
 		if(tolower(h$encoding)%in%c("gz","gzip")) {
 			# testprog='gzip'
 		} else {
