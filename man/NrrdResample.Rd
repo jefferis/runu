@@ -36,7 +36,7 @@ filename}
 \item{UseLock}{Whether to use file-based locking to enable simple
 parallelisation}
 
-\item{...}{Additional params passed to .callunu}
+\item{...}{Additional params passed to unu}
 }
 \value{
 The output file

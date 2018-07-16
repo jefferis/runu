@@ -57,7 +57,7 @@ Nrrd2op<-function(infiles,outfile,fun=c("max","min","+", "-", "x", "/"),
 NrrdMinMax<-function(filename, blind8=FALSE, ...){
   args=shQuote(filename)
   if(blind8) args=c(args,"-blind8 true")
-  minmax=.callunu("minmax",args,intern=TRUE,...)
+  minmax=unu("minmax", args, intern=TRUE, ...)
   if(length(minmax)==0) return(c(NA,NA))
   as.numeric(sub("(min|max): ","",minmax[1:2]))
 }
@@ -95,7 +95,7 @@ NrrdMinMax<-function(filename, blind8=FALSE, ...){
 #'   filename
 #' @param UseLock Whether to use file-based locking to enable simple
 #'   parallelisation
-#' @param ... Additional params passed to .callunu
+#' @param ... Additional params passed to unu
 #' @return The output file
 #' @author jefferis
 #' @export
@@ -148,18 +148,9 @@ NrrdResample<-function(infile,outfile,size,voxdims=NULL,
   cmdargs=paste(size, paste(otherargs,collapse=" "),"-i",shQuote(infile))
   if(gzip)
     cmdargs=paste(cmdargs,"| unu save -f nrrd -e gzip")
-  rval=.callunu("resample",paste(cmdargs,"-o",shQuote(outfile)),...)
+  rval=unu("resample",paste(cmdargs,"-o",shQuote(outfile)),...)
   if(rval!=0) stop("error ",rval," in unu resample")
   return(outfile)
-}
-
-.callunu<-function(cmd,args,unu="unu",DryRun=FALSE,...){
-  fullcmd=paste(unu,cmd,paste(args,collapse=" "))
-  if(DryRun) {
-    cat(fullcmd,"\n",sep="")
-    return(0)
-  }
-  else system(fullcmd,...)
 }
 
 #' Title
@@ -174,7 +165,7 @@ NrrdResample<-function(infile,outfile,size,voxdims=NULL,
 #' @param min,max Minimum and maximum values for the histogram (see details)
 #' @param blind8 Whether to assume the full range (0,255) for 8 bit images
 #'   without checking
-#' @param ... Additional arguments passed to private \code{.callunu} function.
+#' @param ... Additional arguments passed to \code{\link{unu}} function.
 #'
 #' @return Output file
 #' @inheritParams NrrdResample
@@ -211,7 +202,7 @@ NrrdHisto<-function(infile,outfile=sub("\\.([^.]+)$",".histo.\\1",infile),
   }
   unuhistooptions=paste(unuhistooptions,"-b",bins)
   if(!missing(maskfile)) unuhistooptions=paste(unuhistooptions,"-w",shQuote(maskfile))
-  .callunu("histo",paste(unuhistooptions,"-i",shQuote(infile),"-o",shQuote(outfile)),...)
+  unu("histo",paste(unuhistooptions,"-i",shQuote(infile),"-o",shQuote(outfile)),...)
   return(outfile)
 }
 

@@ -22,13 +22,13 @@ file to include.}
 \item{blind8}{Whether to assume the full range (0,255) for 8 bit images
 without checking}
 
-\item{...}{Additional arguments passed to private \code{.callunu} function.}
+\item{...}{Additional arguments passed to \code{\link{unu}} function.}
 }
 \value{
 Output file
 }
 \description{
-Title
+Make a histogram from a nrrd file (as a new nrrd)
 }
 \details{
 \code{bins} defaults to 1000 for float/double image data, to the
