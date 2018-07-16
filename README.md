@@ -1,4 +1,7 @@
-# runu
+[![Travis build status](https://travis-ci.org/jefferis/runu.svg?branch=master)](https://travis-ci.org/jefferis/runu)
+[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](http://jefferis.github.io/runu/)
+ 
+ # runu
 runu wraps the unu (the Utah Nrrd Utilities) command line tool in an R package.
 
 [unu](http://teem.sourceforge.net//unrrdu/index.html) is an image processing 
