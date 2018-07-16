@@ -2,7 +2,7 @@
 % Please edit documentation in R/UNUImageProcessingFunctions.R
 \name{NrrdHisto}
 \alias{NrrdHisto}
-\title{Title}
+\title{Make a histogram from a nrrd file (as a new nrrd)}
 \usage{
 NrrdHisto(infile, outfile = sub("\\\\.([^.]+)$", ".histo.\\\\1", infile),
   maskfile, bins, min, max, blind8 = TRUE, ...)

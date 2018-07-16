@@ -153,7 +153,7 @@ NrrdResample<-function(infile,outfile,size,voxdims=NULL,
   return(outfile)
 }
 
-#' Title
+#' Make a histogram from a nrrd file (as a new nrrd)
 #'
 #' @details \code{bins} defaults to 1000 for float/double image data, to the
 #'   number of levels between \code{min} and \code{max} for integer data. If
