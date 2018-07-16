@@ -2,9 +2,8 @@ Package: runu
 Type: Package
 Title: R wrapper for the unu image processing tool
 Version: 0.1.0
-Authors@R: c(
-    person("Gregory", "Jefferis", , "jefferis@gmail.com", role = c("aut", "cre"))
-    )
+Authors@R: person("Gregory","Jefferis", email="jefferis@gmail.com",
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0587-9355"))
 Description: unu (the Utah Nrrd Utilities) is a command line image processing
     tool that provides a rich suite of multi-dimensional operations. It is 
     targeted at the NRRD (Nearly raw raster data) image format, most commonly
