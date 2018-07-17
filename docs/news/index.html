@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Save a nrrd file in a different encoding / format — NrrdSave • runu</title>
+<title>Changelog • runu</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,10 +30,7 @@
 
 
 
-<meta property="og:title" content="Save a nrrd file in a different encoding / format — NrrdSave" />
-
-<meta property="og:description" content="In outfile is missing, will overwrite infile" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -49,7 +46,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -100,71 +97,28 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Save a nrrd file in a different encoding / format</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jefferis/runu http://teem.sourceforge.net/unrrdu/index.html/blob/master/R/UNUImageProcessingFunctions.R'><code>R/UNUImageProcessingFunctions.R</code></a></small>
-    <div class="hidden name"><code>NrrdSave.Rd</code></div>
+      <h1>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/jefferis/runu http://teem.sourceforge.net/unrrdu/index.html/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    
-    <p>In outfile is missing, will overwrite infile</p>
-    
-    </div>
-
-    <pre class="usage"><span class='fu'>NrrdSave</span>(<span class='no'>infile</span>, <span class='no'>outfile</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"nrrd"</span>, <span class='st'>"pnm"</span>, <span class='st'>"text"</span>, <span class='st'>"vtk"</span>, <span class='st'>"png"</span>,
-  <span class='st'>"eps"</span>), <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='no'>format</span> <span class='kw'>==</span> <span class='st'>"nrrd"</span>, <span class='st'>"gzip"</span>, <span class='st'>"raw"</span>),
-  <span class='kw'>CreateDirs</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>UseLock</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>DryRun</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>infile, outfile</th>
-      <td><p>Paths to input and output nrrds</p></td>
-    </tr>
-    <tr>
-      <th>format</th>
-      <td><p>(one of 6 supported by unu save, default nrrd)</p></td>
-    </tr>
-    <tr>
-      <th>encoding</th>
-      <td><p>(one of 5 supported by unu save, default gz when nrrd)</p></td>
-    </tr>
-    <tr>
-      <th>CreateDirs</th>
-      <td><p>Whether to make missing direcories implied by output path</p></td>
-    </tr>
-    <tr>
-      <th>UseLock</th>
-      <td><p>Whether to make a lockfile (useful for parallel processing)</p></td>
-    </tr>
-    <tr>
-      <th>DryRun</th>
-      <td><p>Return command instead of running it</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>path to ouput file</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='NrrdCrc.html'>NrrdCrc</a></code></p></div>
-    
-
+    <div id="runu-0-1-0" class="section level1">
+<h1 class="page-header">
+<a href="#runu-0-1-0" class="anchor"></a>runu 0.1.0</h1>
+<ul>
+<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
+</ul>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
-
+    <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#runu-0-1-0">0.1.0</a></li>
+      </ul>
+    </div>
   </div>
+
 </div>
 
       <footer>
