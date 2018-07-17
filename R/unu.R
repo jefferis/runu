@@ -29,8 +29,12 @@ unu<-function(cmd='', args=NULL, DryRun=FALSE, ...){
 #' @param location - location of the unu executable
 #' @details If \code{find_unu} cannot find your unu executable then either add
 #'   the directory to your path or set the package option.
-#' @section Installation: You will normally need to compile unu, but it has
-#'   minimal dependencies. See \url{http://teem.sourceforge.net/} for details.
+#' @section Installation: You will normally need to compile unu, but it is
+#'   cross-platform (Windows/Mac/Linux) and has minimal dependencies. It is
+#'   installed as part of the \bold{teem} libraries available at
+#'   \url{http://teem.sourceforge.net/}. See in particular the
+#'   \href{http://teem.sourceforge.net/download/index.html}{download} and
+#'   \href{http://teem.sourceforge.net/build.html}{build} pages for details.
 #' @rdname unu
 #'
 #' @examples
