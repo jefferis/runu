@@ -159,6 +159,8 @@ NrrdResample<-function(infile,outfile,size,voxdims=NULL,
 #'   number of levels between \code{min} and \code{max} for integer data. If
 #'   \code{min} or \code{max} is not specified, they will be set to the minimum
 #'   (maximum) value found in the input data.
+#' @param outfile Path to an output NRRD \emph{or} \code{FALSE} in which case an
+#'   R \code{\link{histogram}} object will be returned.
 #' @param maskfile Path to another image file defining which pixels in the input
 #'   file to include.
 #' @param bins Number of bins for the histogram (see details)
@@ -167,12 +169,21 @@ NrrdResample<-function(infile,outfile,size,voxdims=NULL,
 #'   without checking
 #' @param ... Additional arguments passed to \code{\link{unu}} function.
 #'
-#' @return Output file
+#' @return Output file or an R \code{\link{histogram}} object.
 #' @inheritParams NrrdResample
 #' @importFrom nat read.nrrd.header
 #' @export
 NrrdHisto<-function(infile,outfile=sub("\\.([^.]+)$",".histo.\\1",infile),
   maskfile,bins,min,max,blind8=TRUE,...){
+  readhisto <- is.logical(outfile) && !outfile
+  if(readhisto) {
+    outfile <- tempfile(fileext = ".nrrd")
+    on.exit(unlink(outfile))
+  } else {
+    outfile=path.expand(outfile)
+  }
+  infile=path.expand(infile)
+
   h=read.nrrd.header(infile)
   nrrdType=nat:::.standardNrrdType(h$type)
   unuhistooptions=''
@@ -203,7 +214,8 @@ NrrdHisto<-function(infile,outfile=sub("\\.([^.]+)$",".histo.\\1",infile),
   unuhistooptions=paste(unuhistooptions,"-b",bins)
   if(!missing(maskfile)) unuhistooptions=paste(unuhistooptions,"-w",shQuote(maskfile))
   unu("histo",paste(unuhistooptions,"-i",shQuote(infile),"-o",shQuote(outfile)),...)
-  return(outfile)
+
+  if(readhisto) ReadHistogramFromNrrd(outfile) else outfile
 }
 
 NrrdQuantize<-function(infile,outfile,min,max,bits=c("8","16","32"),

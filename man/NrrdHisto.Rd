@@ -10,7 +10,8 @@ NrrdHisto(infile, outfile = sub("\\\\.([^.]+)$", ".histo.\\\\1", infile),
 \arguments{
 \item{infile}{Input/output files}
 
-\item{outfile}{Input/output files}
+\item{outfile}{Path to an output NRRD \emph{or} \code{FALSE} in which case an
+R \code{\link{histogram}} object will be returned.}
 
 \item{maskfile}{Path to another image file defining which pixels in the input
 file to include.}
@@ -25,7 +26,7 @@ without checking}
 \item{...}{Additional arguments passed to \code{\link{unu}} function.}
 }
 \value{
-Output file
+Output file or an R \code{\link{histogram}} object.
 }
 \description{
 Make a histogram from a nrrd file (as a new nrrd)
