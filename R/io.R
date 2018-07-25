@@ -1,7 +1,8 @@
 
 #' @importFrom nat read.nrrd
 ReadHistogramFromNrrd<-function(filename,...){
-  d=read.nrrd(filename, AttachFullHeader = TRUE, ...)
+  # because of uint32 warning
+  d=suppressWarnings(read.nrrd(filename, AttachFullHeader = TRUE, ...))
   h=attr(d, "header")
   # clear the header attributes
   attributes(d)<-NULL
