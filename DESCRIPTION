@@ -11,7 +11,7 @@ Description: unu (the Utah Nrrd Utilities) is a command line image processing
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: nat, nat.utils
+Imports: nat, nat.utils, memoise
 RoxygenNote: 6.0.1
 URL: https://github.com/jefferis/runu http://teem.sourceforge.net/unrrdu/index.html
 BugReports: https://github.com/jefferis/runu/issues

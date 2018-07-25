@@ -60,6 +60,22 @@ find_unu <- function(location = getOption("runu.unu")) {
   location
 }
 
+#' @importFrom memoise memoise
+unufuns <- function(only.available=FALSE) {
+  res <- suppressWarnings(unu(intern=TRUE))
+  res=trimws(res)
+  res=res[grepl('^\\({0,1}unu ',res)]
+  commands <- sub(".*unu\\s+(.*)\\s+\\.\\.\\..*","\\1", res)
+  descriptions <- sub(".*\\.\\.\\.\\s+(.*)","\\1", res)
+  df=data.frame(command=commands, desc=descriptions, available=!grepl("Not Enabled", res))
+  if(only.available)
+    df=df[df[['available']],]
+  df
+}
+
+unufuns <- memoise(unufuns)
+
+# internal function to control testing
 skip_no_unu <- function() {
   u <- try(find_unu(), silent = TRUE)
   testthat::skip_if(inherits(u, 'try-error'),
