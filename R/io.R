@@ -20,13 +20,12 @@ ReadHistogramFromNrrd<-function(filename,...){
     list(
       breaks = breaks,
       counts = d,
-      intensities = density,
       density = density,
       mids = mids,
       xname = h$content,
       equidist = TRUE
     ),
-    .Names = c("breaks", "counts", "intensities",
+    .Names = c("breaks", "counts",
                "density", "mids", "xname", "equidist"),
     class = "histogram"
   )
