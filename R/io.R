@@ -9,10 +9,10 @@ ReadHistogramFromNrrd<-function(filename,...){
     warning ("This does not appear to be a 1d nrrd histogram")
     return(d)
   }
-  breaks=seq(from=h$axismins,to=h$axismax,len=h$sizes+1)
-  halfwidth=(h$axismaxs-h$axismins)/h$sizes/2
-  density=d/sum(d)
-  mids=seq(h$axismins+halfwidth,h$axismaxs-halfwidth,len=h$sizes)
+  density=d/sum(as.numeric(d))
+  mids=seq(from=h$axismins, to=h$axismax, len=h$sizes)
+  halfwidth=(h$axismaxs-h$axismins)/(h$sizes-1)/2
+  breaks=seq(from=h$axismins-halfwidth, to=h$axismaxs+halfwidth, length.out=h$sizes+1)
 
   # return it as an R histogram
   structure(
