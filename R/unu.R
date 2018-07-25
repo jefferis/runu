@@ -58,3 +58,9 @@ find_unu <- function(location = getOption("runu.unu")) {
 
   location
 }
+
+skip_no_unu <- function() {
+  u <- try(find_unu(), silent = TRUE)
+  testthat::skip_if(inherits(u, 'try-error'),
+                    message = "teem/unu is not installed or visible!")
+}
