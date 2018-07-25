@@ -41,6 +41,12 @@ If \code{find_unu} cannot find your unu executable then either add
 }
 
 \examples{
+\donttest{
+find_unu()
+
+# show help
+unu()
+}
 \dontrun{
 # manually set unu location if required
 options(runu.unu="/path/to/unu")

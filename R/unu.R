@@ -15,6 +15,7 @@
 #'
 #' # show help
 #' unu()
+#' }
 unu<-function(cmd='', args=NULL, DryRun=FALSE, ...){
   unu=find_unu()
   fullcmd=paste(unu, cmd, paste(args, collapse=" "))
