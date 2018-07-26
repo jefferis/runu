@@ -60,7 +60,7 @@ find_unu <- function(location = getOption("runu.unu")) {
   location
 }
 
-#' @importFrom memoise memoise
+#' @importFrom memoise memoise is.memoised
 unufuns <- function(only.available=FALSE) {
   res <- suppressWarnings(unu(intern=TRUE))
   res=trimws(res)
@@ -73,7 +73,7 @@ unufuns <- function(only.available=FALSE) {
   df
 }
 
-unufuns <- memoise(unufuns)
+if(!memoise::is.memoised(unufuns)) unufuns <- memoise(unufuns)
 
 # internal function to control testing
 skip_no_unu <- function() {
