@@ -12,6 +12,7 @@ test_that("we can get unu information", {
 })
 
 test_that("unu hist", {
+  skip_no_unu()
   imh=hist(testim, breaks = 0:256-0.5)
   nh=NrrdHisto(testimf, outfile = F)
   # don't test setting the name
