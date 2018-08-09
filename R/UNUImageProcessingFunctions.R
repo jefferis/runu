@@ -575,8 +575,9 @@ NrrdMerge<-function(infiles,outdir=NULL,outfile=NULL,axis=0,
 #'
 #' @param axes Which axes to flip (0-indexed integer)
 #' @param suffix Suffix to add to input file to construct output file.
-#' @param endian Whether output image should be big (default) or little endian
-#'   for multibyte data types (essentially all other than 8 bit)
+#' @param endian Whether output image should be big or little endian for
+#'   multibyte data types (essentially all other than 8 bit). Defaults to
+#'   endianness of current machine.
 #' @param OverWrite Whether to overwrite (yes or no) or update output image.
 #'
 #' @return \code{TRUE} if output exists
@@ -584,7 +585,7 @@ NrrdMerge<-function(infiles,outdir=NULL,outfile=NULL,axis=0,
 #'
 #' @inheritParams NrrdResample
 #' @inheritParams NrrdProject
-NrrdFlip<-function(infile,outfile,axes,suffix=NULL,endian=c("big","little"),
+NrrdFlip<-function(infile,outfile,axes,suffix=NULL,endian=.Platform$endian,
   CreateDirs=TRUE,Verbose=TRUE,UseLock=FALSE, OverWrite=c("no","update","yes")){
   # TODO would be nice if we could
   # a) have an absolute flip mode that checks the nrrd content field
@@ -593,7 +594,7 @@ NrrdFlip<-function(infile,outfile,axes,suffix=NULL,endian=c("big","little"),
   if(is.logical(OverWrite)) OverWrite=ifelse(OverWrite,"yes","no")
   else OverWrite=match.arg(OverWrite)
 
-  endian=match.arg(endian)
+  endian=match.arg(endian, c("big","little"))
   if (missing(outfile)) {
     if(is.null(suffix)) suffix=paste("-flip",paste(axes,collapse=""),sep="")
     outfile=sub("\\.nrrd$",paste(suffix,".nrrd",sep=""),infile)

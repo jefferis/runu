@@ -4,7 +4,7 @@
 \alias{NrrdFlip}
 \title{Flip a NRRD image along one axis}
 \usage{
-NrrdFlip(infile, outfile, axes, suffix = NULL, endian = c("big", "little"),
+NrrdFlip(infile, outfile, axes, suffix = NULL, endian = .Platform$endian,
   CreateDirs = TRUE, Verbose = TRUE, UseLock = FALSE,
   OverWrite = c("no", "update", "yes"))
 }
@@ -17,8 +17,9 @@ NrrdFlip(infile, outfile, axes, suffix = NULL, endian = c("big", "little"),
 
 \item{suffix}{Suffix to add to input file to construct output file.}
 
-\item{endian}{Whether output image should be big (default) or little endian
-for multibyte data types (essentially all other than 8 bit)}
+\item{endian}{Whether output image should be big or little endian for
+multibyte data types (essentially all other than 8 bit). Defaults to
+endianness of current machine.}
 
 \item{CreateDirs}{Whether to create implied output directories}
 
