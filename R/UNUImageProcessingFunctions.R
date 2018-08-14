@@ -330,6 +330,7 @@ NrrdTestDataLength<-function(infile,defaultReturnVal=TRUE){
 #' is only one member in gzip data. Can also use gzip but this is much slower
 #' since have to copy unu data to temporary file.
 #' @inheritParams NrrdResample
+#' @export
 NrrdCrc<-function(infile, UseGzip=FALSE, FastHeader=TRUE){
 
   if(!file.exists(infile)) return(NA)

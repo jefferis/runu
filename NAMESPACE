@@ -2,6 +2,7 @@
 
 export(AddOrReplaceNrrdHeaderField)
 export(Nrrd2op)
+export(NrrdCrc)
 export(NrrdFlip)
 export(NrrdHisto)
 export(NrrdMakeDetachedHeaderForNrrd)
