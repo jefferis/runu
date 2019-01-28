@@ -5,8 +5,8 @@
 \title{Merge multiple NRRD images into a multichannel PNG}
 \usage{
 NrrdMerge(infiles, outdir = NULL, outfile = NULL, axis = 0,
-  CreateDirs = TRUE, Verbose = TRUE, Force = FALSE, UseLock = FALSE,
-  ...)
+  CreateDirs = TRUE, Verbose = TRUE, Force = FALSE,
+  UseLock = FALSE, ...)
 }
 \arguments{
 \item{infiles}{Input files}

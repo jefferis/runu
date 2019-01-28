@@ -4,7 +4,8 @@
 \alias{NrrdMakeDetachedHeaderForNrrd}
 \title{Make a detached header for a specified nrrd file}
 \usage{
-NrrdMakeDetachedHeaderForNrrd(nrrd, nhdr = paste(nrrd, sep = ".", "nhdr"))
+NrrdMakeDetachedHeaderForNrrd(nrrd, nhdr = paste(nrrd, sep = ".",
+  "nhdr"))
 }
 \arguments{
 \item{nrrd}{Full path to a nrrd file}

@@ -4,10 +4,10 @@
 \alias{NrrdResample}
 \title{Resample a nrrd with simple or complex filters}
 \usage{
-NrrdResample(infile, outfile, size, voxdims = NULL, centering = c("cell",
-  "node"), otherargs = NULL, gzip = TRUE, suffix = NULL,
-  CreateDirs = TRUE, Verbose = TRUE, Force = FALSE, UseLock = FALSE,
-  ...)
+NrrdResample(infile, outfile, size, voxdims = NULL,
+  centering = c("cell", "node"), otherargs = NULL, gzip = TRUE,
+  suffix = NULL, CreateDirs = TRUE, Verbose = TRUE, Force = FALSE,
+  UseLock = FALSE, ...)
 }
 \arguments{
 \item{infile, outfile}{Input/output files}

@@ -4,9 +4,9 @@
 \alias{NrrdFlip}
 \title{Flip a NRRD image along one axis}
 \usage{
-NrrdFlip(infile, outfile, axes, suffix = NULL, flip_space_directions = TRUE,
-  OverWrite = c("no", "update", "yes"), endian = .Platform$endian,
-  CreateDirs = TRUE, UseLock = FALSE, Verbose = TRUE)
+NrrdFlip(infile, outfile, axes, suffix = NULL,
+  endian = .Platform$endian, CreateDirs = TRUE, Verbose = TRUE,
+  UseLock = FALSE, OverWrite = c("no", "update", "yes"))
 }
 \arguments{
 \item{infile}{Input/output files}
@@ -17,43 +17,22 @@ NrrdFlip(infile, outfile, axes, suffix = NULL, flip_space_directions = TRUE,
 
 \item{suffix}{Suffix to add to input file to construct output file.}
 
-\item{flip_space_directions}{Whether to multiply the space directions of the
-selected \code{axes} by -1. This is the default behaviour of unu, but
-sometimes you just want to flip the image data without touching the
-metadata - if so set \code{flip_space_directions=FALSE}.}
-
-\item{OverWrite}{Whether to overwrite (yes or no) or update output image.}
-
 \item{endian}{Whether output image should be big or little endian for
 multibyte data types (essentially all other than 8 bit). Defaults to
 endianness of current machine.}
 
 \item{CreateDirs}{Whether to create implied output directories}
 
+\item{Verbose}{Print status messages}
+
 \item{UseLock}{Whether to use file-based locking to enable simple
 parallelisation}
 
-\item{Verbose}{Print status messages}
+\item{OverWrite}{Whether to overwrite (yes or no) or update output image.}
 }
 \value{
 \code{TRUE} if output exists
 }
 \description{
 Flip a NRRD image along one axis
-}
-\examples{
-\dontrun{
-# flip the first (x) axis
-# will make input-flip.nrrd
-NrrdFlip('input.nrrd', axes=0)
-
-# same but specify outfile name
-NrrdFlip('input.nrrd', outfile='output.nrrd', axes=0)
-
-# flip both axes (nb will do so from left to right)
-NrrdFlip('input.nrrd', axes=0:1)
-
-# flip y axis image data but leave space directions untouched
-NrrdFlip('input.nrrd', axes=1, flip_space_directions=FALSE)
-}
 }

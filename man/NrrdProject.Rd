@@ -4,11 +4,12 @@
 \alias{NrrdProject}
 \title{Make projections along a nrrd axis, typically also rescaling}
 \usage{
-NrrdProject(infile, outfile, axis, measure = c("max", "min", "mean", "median",
-  "mode", "variance", "skew", "intc", "slope", "error", "sd", "product", "sum",
-  "L1", "L2", "Linf"), scale = "x0.3333 x0.333", kernel = "cheap",
-  gamma = NA, cropmin = NULL, cropmax = NULL, suffix = NULL,
-  CreateDirs = TRUE, Verbose = TRUE, Force = FALSE, UseLock = FALSE)
+NrrdProject(infile, outfile, axis, measure = c("max", "min", "mean",
+  "median", "mode", "variance", "skew", "intc", "slope", "error", "sd",
+  "product", "sum", "L1", "L2", "Linf"), scale = "x0.3333 x0.333",
+  kernel = "cheap", gamma = NA, cropmin = NULL, cropmax = NULL,
+  suffix = NULL, CreateDirs = TRUE, Verbose = TRUE, Force = FALSE,
+  UseLock = FALSE)
 }
 \arguments{
 \item{infile}{Input/output files}
