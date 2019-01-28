@@ -332,7 +332,9 @@ NrrdTestDataLength<-function(infile,defaultReturnVal=TRUE){
 #' @inheritParams NrrdResample
 #' @export
 NrrdCrc<-function(infile, UseGzip=FALSE, FastHeader=TRUE){
-
+  if(length(infile)>1) {
+    return(sapply(infile, NrrdCrc, UseGzip=UseGzip, FastHeader=FastHeader))
+  }
   if(!file.exists(infile)) return(NA)
 
   ext=tolower(sub(".*\\.([^.]+)$","\\1",basename(infile)))
