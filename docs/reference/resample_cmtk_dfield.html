@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Quick test that gzipped NRRD has correct data length — NrrdTestDataLength • runu</title>
+<title>Resample a CMTK deformation field — resample_cmtk_dfield • runu</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Quick test that gzipped NRRD has correct data length — NrrdTestDataLength" />
+<meta property="og:title" content="Resample a CMTK deformation field — resample_cmtk_dfield" />
 
-<meta property="og:description" content="Quick test that gzipped NRRD has correct data length" />
+<meta property="og:description" content="Resample a CMTK deformation field" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -102,18 +102,19 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Quick test that gzipped NRRD has correct data length</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jefferis/runu/blob/master/R/UNUImageProcessingFunctions.R'><code>R/UNUImageProcessingFunctions.R</code></a></small>
-    <div class="hidden name"><code>NrrdTestDataLength.Rd</code></div>
+    <h1>Resample a CMTK deformation field</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/runu/blob/master/R/cmtk.R'><code>R/cmtk.R</code></a></small>
+    <div class="hidden name"><code>resample_cmtk_dfield.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Quick test that gzipped NRRD has correct data length</p>
+    <p>Resample a CMTK deformation field</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>NrrdTestDataLength</span>(<span class='no'>infile</span>, <span class='kw'>defaultReturnVal</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>resample_cmtk_dfield</span>(<span class='no'>infile</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>voxdims</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -123,41 +124,39 @@
       <td><p>Input/output files</p></td>
     </tr>
     <tr>
-      <th>defaultReturnVal</th>
-      <td><p>The value to return when file cannot be checked</p></td>
+      <th>outfile</th>
+      <td><p>Input/output files</p></td>
+    </tr>
+    <tr>
+      <th>size</th>
+      <td><p>Numeric vector of scale factors (NA=&gt; don't touch) or integer
+vector of pixel dimensions.</p></td>
+    </tr>
+    <tr>
+      <th>voxdims</th>
+      <td><p>Target voxel dimensions</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional params passed to unu</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A logical indicating if the check passed</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Tests integrity of a nrrd file by checking that the data block is as
-  long as it should be. For a gzip file, it checks that the last 4 bytes
-  encode the length of the uncompressed data. This says nothing about the
-  contents but does ensure that the file has not been truncated which is much
-  the most common problem.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='NrrdTestIntegrity.html'>NrrdTestIntegrity</a></code> which is more comprehensive but much
-  slower</p></div>
-    
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>resample_cmtk_dfield</span>(<span class='st'>"hemiBrain_JRC2018F_Warp_cmtk.nrrd"</span>, <span class='kw'>size</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>NA</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>1</span>/<span class='fl'>3</span>, <span class='fl'>3</span>)))
+<span class='co'># This currently fails because of https://github.com/jefferis/nat/issues/385</span>
+<span class='fu'>resample_cmtk_dfield</span>(<span class='st'>"hemiBrain_JRC2018F_Warp_cmtk.nrrd"</span>, <span class='kw'>voxdims</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>))
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

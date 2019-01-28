@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Quick test that gzipped NRRD has correct data length — NrrdTestDataLength • runu</title>
+<title>Make a detached header for a specified nrrd file — NrrdMakeDetachedHeaderForNrrd • runu</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="Quick test that gzipped NRRD has correct data length — NrrdTestDataLength" />
+<meta property="og:title" content="Make a detached header for a specified nrrd file — NrrdMakeDetachedHeaderForNrrd" />
 
-<meta property="og:description" content="Quick test that gzipped NRRD has correct data length" />
+<meta property="og:description" content="If nhdr is not supplied defaults to &amp;lt;nrrd&amp;gt;.nhdr.
+If nhdr=NA then new header is returned but not written." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -102,48 +103,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Quick test that gzipped NRRD has correct data length</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jefferis/runu/blob/master/R/UNUImageProcessingFunctions.R'><code>R/UNUImageProcessingFunctions.R</code></a></small>
-    <div class="hidden name"><code>NrrdTestDataLength.Rd</code></div>
+    <h1>Make a detached header for a specified nrrd file</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/runu/blob/master/R/io.R'><code>R/io.R</code></a></small>
+    <div class="hidden name"><code>NrrdMakeDetachedHeaderForNrrd.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Quick test that gzipped NRRD has correct data length</p>
+    <p>If nhdr is not supplied defaults to &lt;nrrd&gt;.nhdr.
+If nhdr=NA then new header is returned but not written.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>NrrdTestDataLength</span>(<span class='no'>infile</span>, <span class='kw'>defaultReturnVal</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>NrrdMakeDetachedHeaderForNrrd</span>(<span class='no'>nrrd</span>, <span class='kw'>nhdr</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='no'>nrrd</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+  <span class='st'>"nhdr"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>infile</th>
-      <td><p>Input/output files</p></td>
+      <th>nrrd</th>
+      <td><p>Full path to a nrrd file</p></td>
     </tr>
     <tr>
-      <th>defaultReturnVal</th>
-      <td><p>The value to return when file cannot be checked</p></td>
+      <th>nhdr</th>
+      <td><p>Full path nhdr file to be written</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A logical indicating if the check passed</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Tests integrity of a nrrd file by checking that the data block is as
-  long as it should be. For a gzip file, it checks that the last 4 bytes
-  encode the length of the uncompressed data. This says nothing about the
-  contents but does ensure that the file has not been truncated which is much
-  the most common problem.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='NrrdTestIntegrity.html'>NrrdTestIntegrity</a></code> which is more comprehensive but much
-  slower</p></div>
+    <p>invisibly returned character vector with new header</p>
     
 
   </div>
@@ -153,10 +143,6 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>
