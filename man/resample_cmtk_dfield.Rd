@@ -25,7 +25,7 @@ Resample a CMTK deformation field
 \examples{
 \dontrun{
 resample_cmtk_dfield("hemiBrain_JRC2018F_Warp_cmtk.nrrd", size=c(NA, rep(1/3, 3)))
-# This currently fails because
+# This currently fails because of https://github.com/jefferis/nat/issues/385
 resample_cmtk_dfield("hemiBrain_JRC2018F_Warp_cmtk.nrrd", voxdims=c(NA, 2,2,2))
 }
 }
