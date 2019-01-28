@@ -64,27 +64,31 @@ NrrdMinMax<-function(filename, blind8=FALSE, ...){
 
 #' Resample a nrrd with simple or complex filters
 #'
-#' @description wraps unu resample
+#' description wraps unu resample
 #'
-#'   When size is explicitly an integer (e.g. c(512L,512L,100L) then it is
-#'   assumed to represent the size of the desired output in pixels.
+#' If outfile is \code{NULL} a default filename wil be constructed.
 #'
-#'   unu resample defaults to cell centering in the asbence of information, but
-#'   I prefer node.
+#' When size is explicitly an integer (e.g. c(512L,512L,100L) then it is assumed
+#' to represent the size of the desired output in pixels.
 #'
-#'   * downsampling a **cell** image (e.g. x2) will result in \itemize{
+#' unu resample defaults to cell centering in the asbence of information, but I
+#' prefer node.
 #'
-#'   \item an origin shift **iff** an origin was specified in the input file
+#' * downsampling a **cell** image (e.g. x2) will result in \itemize{
 #'
-#'   \item a change in the space directions that is not an exact multiple of the
-#'   downsampling factor } Downsampling a node image (e.g. x2) will result in:
-#'   \itemize{
+#' \item an origin shift **iff** an origin was specified in the input file
 #'
-#'   \item no change in origin
+#' \item a change in the space directions that is not an exact multiple of the
+#' downsampling factor }.
 #'
-#'   \item a doubling in the space directions field }
-#' @param infile,outfile Input/output files. If outfile is \code{NULL} a default
-#'   filename wil be constructed.
+#' Downsampling a node image (e.g. x2) will result in: \itemize{
+#'
+#' \item no change in origin
+#'
+#' \item a doubling in the space directions field
+#'
+#' }
+#' @param infile,outfile Input/output files
 #' @param size Numeric vector of scale factors (NA=> don't touch) or integer
 #'   vector of pixel dimensions.
 #' @param voxdims Target voxel dimensions

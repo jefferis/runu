@@ -4,7 +4,7 @@
 \alias{NrrdResample}
 \title{Resample a nrrd with simple or complex filters}
 \usage{
-NrrdResample(infile, outfile, size, voxdims = NULL,
+NrrdResample(infile, outfile = NULL, size = NULL, voxdims = NULL,
   centering = c("cell", "node"), otherargs = NULL, gzip = TRUE,
   suffix = NULL, CreateDirs = TRUE, Verbose = TRUE, Force = FALSE,
   UseLock = FALSE, ...)
@@ -42,25 +42,31 @@ parallelisation}
 The output file
 }
 \description{
-wraps unu resample
+description wraps unu resample
+}
+\details{
+If outfile is \code{NULL} a default filename wil be constructed.
 
-  When size is explicitly an integer (e.g. c(512L,512L,100L) then it is
-  assumed to represent the size of the desired output in pixels.
+When size is explicitly an integer (e.g. c(512L,512L,100L) then it is assumed
+to represent the size of the desired output in pixels.
 
-  unu resample defaults to cell centering in the asbence of information, but
-  I prefer node.
+unu resample defaults to cell centering in the asbence of information, but I
+prefer node.
 
-  * downsampling a **cell** image (e.g. x2) will result in \itemize{
+* downsampling a **cell** image (e.g. x2) will result in \itemize{
 
-  \item an origin shift **iff** an origin was specified in the input file
+\item an origin shift **iff** an origin was specified in the input file
 
-  \item a change in the space directions that is not an exact multiple of the
-  downsampling factor } Downsampling a node image (e.g. x2) will result in:
-  \itemize{
+\item a change in the space directions that is not an exact multiple of the
+downsampling factor }.
 
-  \item no change in origin
+Downsampling a node image (e.g. x2) will result in: \itemize{
 
-  \item a doubling in the space directions field }
+\item no change in origin
+
+\item a doubling in the space directions field
+
+}
 }
 \author{
 jefferis
