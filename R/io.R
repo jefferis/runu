@@ -54,13 +54,17 @@ NrrdMakeDetachedHeaderForNrrd<-function(nrrd,nhdr=paste(nrrd,sep='.','nhdr')){
 
 #' Add or replace lines in the header of a nrrd file
 #'
-#' Input is a named vector of new fields. Use unnamed fields for comments.
-#' Quote field names with spaces (conventionally with back ticks).
-#' Note that this function will error out for invalid field names.
-#' See http://teem.sourceforge.net/nrrd/format.html for nrrd field details
+#' @details Input is a named vector of new fields. Use unnamed fields for
+#'   comments. Quote field names with spaces (conventionally with back ticks).
+#'   Note that this function will error out for invalid field names. See
+#'   http://teem.sourceforge.net/nrrd/format.html for nrrd field details
+#'
+#'   Note that \code{newfields} should specify the complete replacement line as
+#'   a string (not the individual values for fields containing multiple
+#'   elements) without the leading field name (see examples).
 #' @param infile Path to input file
 #' @param outfile Path to output file
-#' @param newfields Named vector of fields to replace
+#' @param newfields Named character vector of fields to replace (see details)
 #' @param Force Overwrite existing file (default FALSE)
 #' @param Detached Write a detached header insted of a nrrd (default FALSE)
 #' @param action addreplace (Default) addonly or replaceonly
