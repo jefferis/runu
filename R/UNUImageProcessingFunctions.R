@@ -576,6 +576,10 @@ NrrdMerge<-function(infiles,outdir=NULL,outfile=NULL,axis=0,
 #'
 #' @param axes Which axes to flip (0-indexed integer)
 #' @param suffix Suffix to add to input file to construct output file.
+#' @param flip_space_directions Whether to multiply the space directions of the
+#'   selected \code{axes} by -1. This is the default behaviour of unu, but
+#'   sometimes you just want to flip the image data without touching the
+#'   metadata - if so set \code{flip_space_directions=FALSE}.
 #' @param endian Whether output image should be big or little endian for
 #'   multibyte data types (essentially all other than 8 bit). Defaults to
 #'   endianness of current machine.
@@ -586,8 +590,26 @@ NrrdMerge<-function(infiles,outdir=NULL,outfile=NULL,axis=0,
 #'
 #' @inheritParams NrrdResample
 #' @inheritParams NrrdProject
-NrrdFlip<-function(infile,outfile,axes,suffix=NULL,endian=.Platform$endian,
-  CreateDirs=TRUE,Verbose=TRUE,UseLock=FALSE, OverWrite=c("no","update","yes")){
+#' @examples
+#' \dontrun{
+#' # flip the first (x) axis
+#' # will make input-flip.nrrd
+#' NrrdFlip('input.nrrd', axes=0)
+#'
+#' # same but specify outfile name
+#' NrrdFlip('input.nrrd', outfile='output.nrrd', axes=0)
+#'
+#' # flip both axes (nb will do so from left to right)
+#' NrrdFlip('input.nrrd', axes=0:1)
+#'
+#' # flip y axis image data but leave space directions untouched
+#' NrrdFlip('input.nrrd', axes=1, flip_space_directions=FALSE)
+#' }
+NrrdFlip<-function(infile, outfile, axes, suffix=NULL,
+                   flip_space_directions=TRUE,
+                   OverWrite=c("no","update","yes"),
+                   endian=.Platform$endian,
+                   CreateDirs=TRUE,UseLock=FALSE, Verbose=TRUE){
   # TODO would be nice if we could
   # a) have an absolute flip mode that checks the nrrd content field
   # b) similarly checks whether output image has been flipped accordingly
@@ -602,6 +624,16 @@ NrrdFlip<-function(infile,outfile,axes,suffix=NULL,endian=.Platform$endian,
   }
 
   if(!file.exists(infile)) stop("infile: ",infile," does not exist")
+
+  if(!isTRUE(flip_space_directions)) {
+    # want to keep the original header to use later
+    inh=read.nrrd.header(outfile)
+    inht=attr(inh, 'headertext')
+    oldspacedirs=grep("^space directions: ", inht, value = T)
+    if(!length(oldspacedirs))
+      stop("Unable to find old space directions, so don't know to fix spatial ",
+           "metadata after flip!")
+  }
 
   # return TRUE to signal output exists (whether or not we made it)
   if(file.exists(outfile)){
@@ -632,6 +664,15 @@ NrrdFlip<-function(infile,outfile,axes,suffix=NULL,endian=.Platform$endian,
   rval = system(cmd)
   if(Verbose) cat(".")
   if(rval!=0) stop("unu error ",rval," in NrrdProject")
+
+  if(!isTRUE(flip_space_directions)) {
+    # need to do some surgery on the nrrd header
+    # FIXME - should initially save as detached nrrd if we need to do this
+    # to avoid excessive file copies
+    attr(inh,"headertext")
+    AddOrReplaceNrrdHeaderField(infile = outfile,
+                                newfields = c(`space directions`=oldspacedirs))
+  }
   return(TRUE)
 }
 
