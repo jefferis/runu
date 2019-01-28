@@ -83,7 +83,8 @@ NrrdMinMax<-function(filename, blind8=FALSE, ...){
 #'   \item no change in origin
 #'
 #'   \item a doubling in the space directions field }
-#' @param infile,outfile Input/output files
+#' @param infile,outfile Input/output files. If outfile is \code{NULL} a default
+#'   filename wil be constructed.
 #' @param size Numeric vector of scale factors (NA=> don't touch) or integer
 #'   vector of pixel dimensions.
 #' @param voxdims Target voxel dimensions
@@ -101,7 +102,7 @@ NrrdMinMax<-function(filename, blind8=FALSE, ...){
 #' @export
 #' @importFrom nat.utils makelock
 #' @inheritParams Nrrd2op
-NrrdResample<-function(infile,outfile,size,voxdims=NULL,
+NrrdResample<-function(infile,outfile=NULL,size=NULL,voxdims=NULL,
     centering=c("cell","node"),otherargs=NULL,gzip=TRUE, suffix=NULL,
     CreateDirs=TRUE,Verbose=TRUE,Force=FALSE,UseLock=FALSE,...){
 
@@ -111,6 +112,8 @@ NrrdResample<-function(infile,outfile,size,voxdims=NULL,
     # we have a target voxel size instead of a standard size specification
     # first fetch existing voxel size
     size=nat::nrrd.voxdims(infile)/voxdims
+  } else if(is.null(size)) {
+    stop("Must specify size or voxdims")
   }
   if(is.integer(size)) size=paste("--size",paste(size,collapse=" "))
   else {
@@ -119,7 +122,7 @@ NrrdResample<-function(infile,outfile,size,voxdims=NULL,
     size=sub("xNA","=",size)
   }
 
-  if (missing(outfile)) {
+  if (is.null(outfile)) {
     # we only want to add a default suffix if we are putting the output
     # file into the same directory
     if(is.null(suffix))
